@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CWL workflow explorer</title><style>/*__STYLE__*/</style></head>
+<body>
+<header><div><span class="eyebrow">CWL / WORKFLOW ATLAS</span><h1 id="title">CWL workflow explorer</h1></div><span class="offline">● Offline · WebGL</span></header>
+<nav aria-label="Workflow controls"><label>Workflow <select id="workflows"></select></label><button id="back" disabled>← Parent</button><button id="fit">Fit graph</button><button id="reset">Reset layout</button><label>Trace <select id="direction"><option value="both">Both directions</option><option value="up">Upstream</option><option value="down">Downstream</option><option value="none">Selected only</option></select></label><label class="search">Find <input id="search" type="search" placeholder="Step, input or output…"></label></nav>
+<main><section id="stage" aria-label="Interactive workflow graph"><canvas id="graph" aria-label="WebGL graph; use the node list for keyboard navigation"></canvas><canvas id="labels" aria-hidden="true"></canvas><div id="breadcrumb"></div><div id="hint">Drag a component to move it · Drag the background to pan · Scroll to zoom · Esc cancels a drag</div><div id="error" role="alert" hidden></div></section>
+<aside><div class="eyebrow">INSPECTOR</div><h2 id="selection">Workflow overview</h2><p id="summary"></p><button id="open" hidden>Open subworkflow →</button><details open><summary>Nodes <span id="count"></span></summary><div id="nodes"></div></details><h3>Contract & bindings</h3><label>Inspect <select id="properties"></select></label><pre id="detail"></pre><h3>Connections</h3><div id="connections"></div></aside></main>
+<footer>Static CWL structure · Scatter counts and conditional outcomes require runtime inputs. Expressions are displayed, never executed.</footer>
+<script id="payload" type="application/json">__PAYLOAD__</script><script>/*__SCRIPT__*/</script>
+</body></html>

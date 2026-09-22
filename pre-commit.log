@@ -1,0 +1,391 @@
+mypy (strict type checking)..............................................[41mFailed[m
+[2m- hook id: mypy[m
+[2m- exit code: 1[m
+
+src/cwl2webgl/projection.py:285: [1m[31merror:(B[m Argument 1 to (B[m[1m"list"(B[m has incompatible type (B[m[1m"Iterable[cwl_utils.parser.cwl_v1_0.Workflow | cwl_utils.parser.cwl_v1_1.Workflow | cwl_utils.parser.cwl_v1_2.Workflow | cwl_utils.parser.cwl_v1_0.CommandLineTool | cwl_utils.parser.cwl_v1_1.CommandLineTool | cwl_utils.parser.cwl_v1_2.CommandLineTool | cwl_utils.parser.cwl_v1_0.ExpressionTool | cwl_utils.parser.cwl_v1_1.ExpressionTool | cwl_utils.parser.cwl_v1_2.ExpressionTool | Operation]"(B[m; expected (B[m[1m"Iterable[cwl_utils.parser.cwl_v1_0.Workflow | cwl_utils.parser.cwl_v1_1.Workflow | cwl_utils.parser.cwl_v1_2.Workflow]"(B[m  (B[m[33m[arg-type](B[m
+tests/test_plugin.py:327: [1m[31merror:(B[m Cannot find implementation or library stub for module named (B[m[1m"click.testing"(B[m  (B[m[33m[import-not-found](B[m
+tests/test_plugin.py:328: [1m[31merror:(B[m Skipping analyzing (B[m[1m"transpiler_mate.runtime.cli"(B[m: module is installed, but missing library stubs or py.typed marker  (B[m[33m[import-untyped](B[m
+tests/test_plugin.py:328: [34mnote:(B[m See [4mhttps://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports(B[m(B[m
+[1m[31mFound 3 errors in 2 files (checked 6 source files)(B[m
+
+ruff (format)............................................................[42mPassed[m
+ruff (check and McCabe complexity).......................................[41mFailed[m
+[2m- hook id: ruff[m
+[2m- exit code: 1[m
+
+[1m[91m]8;;https://docs.astral.sh/ruff/rules/os-replace\PTH105]8;;\[0m[1m `os.replace()` should be replaced by `Path.replace()`[0m
+   [1m[94m--> [0msrc/cwl2webgl/plugin.py:99:13
+    [1m[94m|[0m
+[1m[94m 97[0m [1m[94m|[0m             os.fsync(stream.fileno())
+[1m[94m 98[0m [1m[94m|[0m         if options.overwrite:
+[1m[94m 99[0m [1m[94m|[0m             os.replace(temporary, options.output)
+    [1m[94m|[0m             [1m[91m^^^^^^^^^^[0m
+[1m[94m100[0m [1m[94m|[0m         else:
+[1m[94m101[0m [1m[94m|[0m             # Atomic create-if-absent; do not clobber a concurrent writer.
+    [1m[94m|[0m
+[1m[96mhelp[0m[1m: Replace with `Path(...).replace(...)`[0m
+
+[1m[91m]8;;https://docs.astral.sh/ruff/rules/complex-structure\C901]8;;\[0m[1m `view` is too complex (19 > 10)[0m
+   [1m[94m--> [0msrc/cwl2webgl/projection.py:146:9
+    [1m[94m|[0m
+[1m[94m144[0m [1m[94m|[0m         return process, other
+[1m[94m145[0m [1m[94m|[0m
+[1m[94m146[0m [1m[94m|[0m     def view(self, workflow: Any, context: TranspilerContext) -> str:
+    [1m[94m|[0m         [1m[91m^^^^[0m
+[1m[94m147[0m [1m[94m|[0m         key = str(context.source) + "|" + workflow.id
+[1m[94m148[0m [1m[94m|[0m         if key in self.active:
+    [1m[94m|[0m
+
+[1m[91m]8;;https://docs.astral.sh/ruff/rules/undefined-name\F821]8;;\[0m[1m Undefined name `render`[0m
+   [1m[94m--> [0mtests/test_plugin.py:265:12
+    [1m[94m|[0m
+[1m[94m263[0m [1m[94m|[0m     wf = loaded()
+[1m[94m264[0m [1m[94m|[0m     wf.label = '</script><script>alert("bad")</script> À'
+[1m[94m265[0m [1m[94m|[0m     page = render(context(wf), CWL2WebGLOptions(title=wf.label))
+    [1m[94m|[0m            [1m[91m^^^^^^[0m
+[1m[94m266[0m [1m[94m|[0m     assert wf.label not in page
+[1m[94m267[0m [1m[94m|[0m     encoded = re.search(
+    [1m[94m|[0m
+
+Found 3 errors.
+
+bandit (find common security issues).....................................[42mPassed[m
+pytest...................................................................[41mFailed[m
+[2m- hook id: pytest[m
+[2m- exit code: 1[m
+
+[92m───────────────────────────────── [0m[1;36mtest.py3.10[0m[92m ──────────────────────────────────[0m
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/stripodi/Documents/transpiler-mate/cwl2webgl
+configfile: pyproject.toml
+plugins: cov-7.1.0
+[1mcollecting ... [0m[1mcollected 23 items                                                             [0m
+
+tests/test_pattern12.py [31mF[0m[31m                                                [  4%][0m
+tests/test_plugin.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[33ms[0m[33ms[0m[31m                              [100%][0m
+
+=================================== FAILURES ===================================
+[31m[1m__________________ test_pattern12_structure_and_named_schemas __________________[0m
+
+self = <schema_salad.fetcher.DefaultFetcher object at 0x704847870280>
+url = 'file:///home/stripodi/Documents/transpiler-mate/cwl2webgl/examples/pattern-12.cwl'
+content_types = None
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mfetch_text[39;49;00m([96mself[39;49;00m, url: [96mstr[39;49;00m, content_types: [96mlist[39;49;00m[[96mstr[39;49;00m] | [94mNone[39;49;00m = [94mNone[39;49;00m) -> [96mstr[39;49;00m:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Retrieve the given resource as a string."""[39;49;00m[90m[39;49;00m
+        result: Final = [96mself[39;49;00m.cache.get(url, [94mNone[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m [96misinstance[39;49;00m(result, [96mstr[39;49;00m):[90m[39;49;00m
+            [94mreturn[39;49;00m result[90m[39;49;00m
+    [90m[39;49;00m
+        split: Final = urllib.parse.urlsplit(url)[90m[39;49;00m
+        scheme: Final = split.scheme[90m[39;49;00m
+        path = split.path[90m[39;49;00m
+    [90m[39;49;00m
+        [94mmatch[39;49;00m scheme:[90m[39;49;00m
+            [94mcase[39;49;00m [33m"[39;49;00m[33mhttp[39;49;00m[33m"[39;49;00m | [33m"[39;49;00m[33mhttps[39;49;00m[33m"[39;49;00m [94mif[39;49;00m [96mself[39;49;00m.session [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    headers = {}[90m[39;49;00m
+                    [94mif[39;49;00m content_types:[90m[39;49;00m
+                        headers[[33m"[39;49;00m[33mAccept[39;49;00m[33m"[39;49;00m] = [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(content_types) + [33m"[39;49;00m[33m, */*;q=0.8[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    resp: Final = [96mself[39;49;00m.session.get(url, headers=headers)[90m[39;49;00m
+                    resp.raise_for_status()[90m[39;49;00m
+                [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+                    [94mraise[39;49;00m ValidationException([33mf[39;49;00m[33m"[39;49;00m[33mError fetching [39;49;00m[33m{[39;49;00murl[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m) [94mfrom[39;49;00m[90m [39;49;00m[04m[96me[39;49;00m[90m[39;49;00m
+                [94mif[39;49;00m content_types [95mand[39;49;00m [33m"[39;49;00m[33mcontent-type[39;49;00m[33m"[39;49;00m [95min[39;49;00m resp.headers:[90m[39;49;00m
+                    received_content_types = [96mset[39;49;00m([90m[39;49;00m
+                        resp.headers[[33m"[39;49;00m[33mcontent-type[39;49;00m[33m"[39;49;00m].split([33m"[39;49;00m[33m;[39;49;00m[33m"[39;49;00m)[:[94m1[39;49;00m][[94m0[39;49;00m].split([33m"[39;49;00m[33m,[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+                    )[90m[39;49;00m
+                    [94mif[39;49;00m [96mset[39;49;00m(content_types).isdisjoint(received_content_types):[90m[39;49;00m
+                        _logger.warning([90m[39;49;00m
+                            [33m"[39;49;00m[33mWhile fetching [39;49;00m[33m%s[39;49;00m[33m, got content-type of [39;49;00m[33m%r[39;49;00m[33m. Expected one of [39;49;00m[33m%s[39;49;00m[33m.[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                            url,[90m[39;49;00m
+                            resp.headers[[33m"[39;49;00m[33mcontent-type[39;49;00m[33m"[39;49;00m].split([33m"[39;49;00m[33m;[39;49;00m[33m"[39;49;00m)[:[94m1[39;49;00m][[94m0[39;49;00m],[90m[39;49;00m
+                            content_types,[90m[39;49;00m
+                        )[90m[39;49;00m
+                [94mreturn[39;49;00m resp.text[90m[39;49;00m
+            [94mcase[39;49;00m [33m"[39;49;00m[33mfile[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [90m# On Windows, url.path will be /drive:/path ; on Unix systems,[39;49;00m[90m[39;49;00m
+                    [90m# /path. As we want drive:/path instead of /drive:/path on Windows,[39;49;00m[90m[39;49;00m
+                    [90m# remove the leading /.[39;49;00m[90m[39;49;00m
+                    [94mif[39;49;00m os.path.isabs([90m[39;49;00m
+                        path[[94m1[39;49;00m:][90m[39;49;00m
+                    ):  [90m# checking if pathis valid after removing front / or not[39;49;00m[90m[39;49;00m
+                        path = path[[94m1[39;49;00m:][90m[39;49;00m
+>                   [94mwith[39;49;00m [96mopen[39;49;00m(urllib.request.url2pathname([96mstr[39;49;00m(path)), encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m fp:[90m[39;49;00m
+[1m[31mE                   FileNotFoundError: [Errno 2] No such file or directory: '/home/stripodi/Documents/transpiler-mate/cwl2webgl/examples/pattern-12.cwl'[0m
+
+[1m[31m../../../.local/share/hatch/env/virtual/cwl2webgl/k3nlLUSR/test.py3.10/lib/python3.10/site-packages/schema_salad/fetcher.py[0m:108: FileNotFoundError
+
+[33mThe above exception was the direct cause of the following exception:[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-stripodi/pytest-79/test_pattern12_structure_and_n0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_pattern12_structure_and_named_schemas[39;49;00m(tmp_path):[90m[39;49;00m
+>       ctx = pattern_context()[90m[39;49;00m
+
+[1m[31mtests/test_pattern12.py[0m:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mtests/test_pattern12.py[0m:30: in pattern_context
+    [0mdom = load_document_by_uri([90m[39;49;00m
+[1m[31m../../../.local/share/hatch/env/virtual/cwl2webgl/k3nlLUSR/test.py3.10/lib/python3.10/site-packages/cwl_utils/parser/__init__.py[0m:345: in load_document_by_uri
+    [0mloadingOptions.fetcher.fetch_text(real_uri),[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <schema_salad.fetcher.DefaultFetcher object at 0x704847870280>
+url = 'file:///home/stripodi/Documents/transpiler-mate/cwl2webgl/examples/pattern-12.cwl'
+content_types = None
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mfetch_text[39;49;00m([96mself[39;49;00m, url: [96mstr[39;49;00m, content_types: [96mlist[39;49;00m[[96mstr[39;49;00m] | [94mNone[39;49;00m = [94mNone[39;49;00m) -> [96mstr[39;49;00m:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Retrieve the given resource as a string."""[39;49;00m[90m[39;49;00m
+        result: Final = [96mself[39;49;00m.cache.get(url, [94mNone[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m [96misinstance[39;49;00m(result, [96mstr[39;49;00m):[90m[39;49;00m
+            [94mreturn[39;49;00m result[90m[39;49;00m
+    [90m[39;49;00m
+        split: Final = urllib.parse.urlsplit(url)[90m[39;49;00m
+        scheme: Final = split.scheme[90m[39;49;00m
+        path = split.path[90m[39;49;00m
+    [90m[39;49;00m
+        [94mmatch[39;49;00m scheme:[90m[39;49;00m
+            [94mcase[39;49;00m [33m"[39;49;00m[33mhttp[39;49;00m[33m"[39;49;00m | [33m"[39;49;00m[33mhttps[39;49;00m[33m"[39;49;00m [94mif[39;49;00m [96mself[39;49;00m.session [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    headers = {}[90m[39;49;00m
+                    [94mif[39;49;00m content_types:[90m[39;49;00m
+                        headers[[33m"[39;49;00m[33mAccept[39;49;00m[33m"[39;49;00m] = [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(content_types) + [33m"[39;49;00m[33m, */*;q=0.8[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    resp: Final = [96mself[39;49;00m.session.get(url, headers=headers)[90m[39;49;00m
+                    resp.raise_for_status()[90m[39;49;00m
+                [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+                    [94mraise[39;49;00m ValidationException([33mf[39;49;00m[33m"[39;49;00m[33mError fetching [39;49;00m[33m{[39;49;00murl[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m) [94mfrom[39;49;00m[90m [39;49;00m[04m[96me[39;49;00m[90m[39;49;00m
+                [94mif[39;49;00m content_types [95mand[39;49;00m [33m"[39;49;00m[33mcontent-type[39;49;00m[33m"[39;49;00m [95min[39;49;00m resp.headers:[90m[39;49;00m
+                    received_content_types = [96mset[39;49;00m([90m[39;49;00m
+                        resp.headers[[33m"[39;49;00m[33mcontent-type[39;49;00m[33m"[39;49;00m].split([33m"[39;49;00m[33m;[39;49;00m[33m"[39;49;00m)[:[94m1[39;49;00m][[94m0[39;49;00m].split([33m"[39;49;00m[33m,[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+                    )[90m[39;49;00m
+                    [94mif[39;49;00m [96mset[39;49;00m(content_types).isdisjoint(received_content_types):[90m[39;49;00m
+                        _logger.warning([90m[39;49;00m
+                            [33m"[39;49;00m[33mWhile fetching [39;49;00m[33m%s[39;49;00m[33m, got content-type of [39;49;00m[33m%r[39;49;00m[33m. Expected one of [39;49;00m[33m%s[39;49;00m[33m.[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                            url,[90m[39;49;00m
+                            resp.headers[[33m"[39;49;00m[33mcontent-type[39;49;00m[33m"[39;49;00m].split([33m"[39;49;00m[33m;[39;49;00m[33m"[39;49;00m)[:[94m1[39;49;00m][[94m0[39;49;00m],[90m[39;49;00m
+                            content_types,[90m[39;49;00m
+                        )[90m[39;49;00m
+                [94mreturn[39;49;00m resp.text[90m[39;49;00m
+            [94mcase[39;49;00m [33m"[39;49;00m[33mfile[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [90m# On Windows, url.path will be /drive:/path ; on Unix systems,[39;49;00m[90m[39;49;00m
+                    [90m# /path. As we want drive:/path instead of /drive:/path on Windows,[39;49;00m[90m[39;49;00m
+                    [90m# remove the leading /.[39;49;00m[90m[39;49;00m
+                    [94mif[39;49;00m os.path.isabs([90m[39;49;00m
+                        path[[94m1[39;49;00m:][90m[39;49;00m
+                    ):  [90m# checking if pathis valid after removing front / or not[39;49;00m[90m[39;49;00m
+                        path = path[[94m1[39;49;00m:][90m[39;49;00m
+                    [94mwith[39;49;00m [96mopen[39;49;00m(urllib.request.url2pathname([96mstr[39;49;00m(path)), encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m fp:[90m[39;49;00m
+                        [94mreturn[39;49;00m [96mstr[39;49;00m(fp.read())[90m[39;49;00m
+    [90m[39;49;00m
+                [94mexcept[39;49;00m [96mOSError[39;49;00m [94mas[39;49;00m err:[90m[39;49;00m
+                    [94mif[39;49;00m err.filename == path:[90m[39;49;00m
+>                       [94mraise[39;49;00m ValidationException([96mstr[39;49;00m(err)) [94mfrom[39;49;00m[90m [39;49;00m[04m[96merr[39;49;00m[90m[39;49;00m
+[1m[31mE                       schema_salad.exceptions.ValidationException: [Errno 2] No such file or directory: '/home/stripodi/Documents/transpiler-mate/cwl2webgl/examples/pattern-12.cwl'[0m
+
+[1m[31m../../../.local/share/hatch/env/virtual/cwl2webgl/k3nlLUSR/test.py3.10/lib/python3.10/site-packages/schema_salad/fetcher.py[0m:113: ValidationException
+[31m[1m________________________ test_registration_and_options _________________________[0m
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_registration_and_options[39;49;00m():[90m[39;49;00m
+>       [94massert[39;49;00m cwl2webgl.name == [33m"[39;49;00m[33mcwl-webgl[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE       AssertionError: assert 'cwl2webgl' == 'cwl-webgl'[0m
+[1m[31mE         [0m
+[1m[31mE         [0m[91m- cwl-webgl[39;49;00m[90m[39;49;00m[0m
+[1m[31mE         ?    ^[90m[39;49;00m[0m
+[1m[31mE         [92m+ cwl2webgl[39;49;00m[90m[39;49;00m[0m
+[1m[31mE         ?    ^[90m[39;49;00m[0m
+
+[1m[31mtests/test_plugin.py[0m:97: AssertionError
+[31m[1m_________________________ test_html_safety_and_unicode _________________________[0m
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_html_safety_and_unicode[39;49;00m():[90m[39;49;00m
+        wf = loaded()[90m[39;49;00m
+        wf.label = [33m'[39;49;00m[33m</script><script>alert([39;49;00m[33m"[39;49;00m[33mbad[39;49;00m[33m"[39;49;00m[33m)</script> À[39;49;00m[33m'[39;49;00m[90m[39;49;00m
+>       page = render(context(wf), CWL2WebGLOptions(title=wf.label))[90m[39;49;00m
+[1m[31mE       NameError: name 'render' is not defined[0m
+
+[1m[31mtests/test_plugin.py[0m:265: NameError
+[31m[1m_______________________ test_atomic_output_and_overwrite _______________________[0m
+
+context = TranspilerContext(source=AnyUrl('file:///example.cwl'), process_id=None, metadata=SoftwareApplication(field_type='http...wl_utils.parser.cwl_v1_2.Workflow object at 0x7048476934f0>}, resolver=<test_plugin.Resolver object at 0x704847691330>)
+options = CWL2WebGLOptions(output=PosixPath('/tmp/pytest-of-stripodi/pytest-79/test_atomic_output_and_overwri0/sub/view.html'), overwrite=False)
+
+    [0m[37m@transpiler_plugin[39;49;00m([90m[39;49;00m
+        name=[33m"[39;49;00m[33mcwl2webgl[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        description=[33m"[39;49;00m[33mExplore CWL workflows in an offline WebGL HTML viewer.[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        options_model=CWL2WebGLOptions,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mcwl2webgl[39;49;00m(context: TranspilerContext, options: CWL2WebGLOptions) -> [94mNone[39;49;00m:[90m[39;49;00m
+        temporary: Path | [94mNone[39;49;00m = [94mNone[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m options.output.exists() [95mand[39;49;00m [95mnot[39;49;00m options.overwrite:[90m[39;49;00m
+                [94mraise[39;49;00m PluginFailureError([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mOutput exists: [39;49;00m[33m{[39;49;00moptions.output[33m}[39;49;00m[33m; set overwrite=true to replace it[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+>           content = render(context, options)[90m[39;49;00m
+
+[1m[31msrc/cwl2webgl/plugin.py[0m:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31msrc/cwl2webgl/plugin.py[0m:52: in render
+    [0mpayload[[33m"[39;49;00m[33mtitle[39;49;00m[33m"[39;49;00m] = context.metadata.name[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = SoftwareApplication(field_type='https://schema.org/SoftwareApplication', identifier=None, same_as=None, keywords=None, operating_system=None, software_requirements=None, contributor=None, thumbnail=None)
+item = 'name'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m__getattr__[39;49;00m([96mself[39;49;00m, item: [96mstr[39;49;00m) -> Any:[90m[39;49;00m
+        private_attributes = [96mobject[39;49;00m.[92m__getattribute__[39;49;00m([96mself[39;49;00m, [33m'[39;49;00m[33m__private_attributes__[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m item [95min[39;49;00m private_attributes:[90m[39;49;00m
+            attribute = private_attributes[item][90m[39;49;00m
+            [94mif[39;49;00m [96mhasattr[39;49;00m(attribute, [33m'[39;49;00m[33m__get__[39;49;00m[33m'[39;49;00m):[90m[39;49;00m
+                [94mreturn[39;49;00m attribute.[92m__get__[39;49;00m([96mself[39;49;00m, [96mtype[39;49;00m([96mself[39;49;00m))  [90m# type: ignore[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                [90m# Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items[39;49;00m[90m[39;49;00m
+                [94mreturn[39;49;00m [96mself[39;49;00m.__pydantic_private__[item]  [90m# type: ignore[39;49;00m[90m[39;49;00m
+            [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+                [94mraise[39;49;00m [96mAttributeError[39;49;00m([33mf[39;49;00m[33m'[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m([96mself[39;49;00m).[91m__name__[39;49;00m[33m!r}[39;49;00m[33m object has no attribute [39;49;00m[33m{[39;49;00mitem[33m!r}[39;49;00m[33m'[39;49;00m) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mexc[39;49;00m[90m[39;49;00m
+        [94melse[39;49;00m:[90m[39;49;00m
+            [90m# `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.[39;49;00m[90m[39;49;00m
+            [90m# See `BaseModel.__repr_args__` for more details[39;49;00m[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                pydantic_extra = [96mobject[39;49;00m.[92m__getattribute__[39;49;00m([96mself[39;49;00m, [33m'[39;49;00m[33m__pydantic_extra__[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
+            [94mexcept[39;49;00m [96mAttributeError[39;49;00m:[90m[39;49;00m
+                pydantic_extra = [94mNone[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m pydantic_extra [95mand[39;49;00m item [95min[39;49;00m pydantic_extra:[90m[39;49;00m
+                [94mreturn[39;49;00m pydantic_extra[item][90m[39;49;00m
+            [94melse[39;49;00m:[90m[39;49;00m
+                [94mif[39;49;00m [96mhasattr[39;49;00m([96mself[39;49;00m.[91m__class__[39;49;00m, item):[90m[39;49;00m
+                    [94mreturn[39;49;00m [96msuper[39;49;00m().[92m__getattribute__[39;49;00m(item)  [90m# Raises AttributeError if appropriate[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    [90m# this is the current error[39;49;00m[90m[39;49;00m
+>                   [94mraise[39;49;00m [96mAttributeError[39;49;00m([33mf[39;49;00m[33m'[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m([96mself[39;49;00m).[91m__name__[39;49;00m[33m!r}[39;49;00m[33m object has no attribute [39;49;00m[33m{[39;49;00mitem[33m!r}[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
+[1m[31mE                   AttributeError: 'SoftwareApplication' object has no attribute 'name'[0m
+
+[1m[31m../../../.local/share/hatch/env/virtual/cwl2webgl/k3nlLUSR/test.py3.10/lib/python3.10/site-packages/pydantic/main.py[0m:1042: AttributeError
+
+[33mThe above exception was the direct cause of the following exception:[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-stripodi/pytest-79/test_atomic_output_and_overwri0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_atomic_output_and_overwrite[39;49;00m(tmp_path):[90m[39;49;00m
+        path = tmp_path / [33m"[39;49;00m[33msub[39;49;00m[33m"[39;49;00m / [33m"[39;49;00m[33mview.html[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        ctx = context(loaded())[90m[39;49;00m
+>       cwl2webgl.execute(ctx, CWL2WebGLOptions(output=path))[90m[39;49;00m
+
+[1m[31mtests/test_plugin.py[0m:278: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+context = TranspilerContext(source=AnyUrl('file:///example.cwl'), process_id=None, metadata=SoftwareApplication(field_type='http...wl_utils.parser.cwl_v1_2.Workflow object at 0x7048476934f0>}, resolver=<test_plugin.Resolver object at 0x704847691330>)
+options = CWL2WebGLOptions(output=PosixPath('/tmp/pytest-of-stripodi/pytest-79/test_atomic_output_and_overwri0/sub/view.html'), overwrite=False)
+
+    [0m[37m@transpiler_plugin[39;49;00m([90m[39;49;00m
+        name=[33m"[39;49;00m[33mcwl2webgl[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        description=[33m"[39;49;00m[33mExplore CWL workflows in an offline WebGL HTML viewer.[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        options_model=CWL2WebGLOptions,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mcwl2webgl[39;49;00m(context: TranspilerContext, options: CWL2WebGLOptions) -> [94mNone[39;49;00m:[90m[39;49;00m
+        temporary: Path | [94mNone[39;49;00m = [94mNone[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m options.output.exists() [95mand[39;49;00m [95mnot[39;49;00m options.overwrite:[90m[39;49;00m
+                [94mraise[39;49;00m PluginFailureError([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mOutput exists: [39;49;00m[33m{[39;49;00moptions.output[33m}[39;49;00m[33m; set overwrite=true to replace it[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+            content = render(context, options)[90m[39;49;00m
+            options.output.parent.mkdir(parents=[94mTrue[39;49;00m, exist_ok=[94mTrue[39;49;00m)[90m[39;49;00m
+            [94mwith[39;49;00m tempfile.NamedTemporaryFile([90m[39;49;00m
+                mode=[33m"[39;49;00m[33mw[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                [96mdir[39;49;00m=options.output.parent,[90m[39;49;00m
+                suffix=[33m"[39;49;00m[33m.tmp[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                delete=[94mFalse[39;49;00m,[90m[39;49;00m
+            ) [94mas[39;49;00m stream:[90m[39;49;00m
+                temporary = Path(stream.name)[90m[39;49;00m
+                stream.write(content)[90m[39;49;00m
+                stream.flush()[90m[39;49;00m
+                os.fsync(stream.fileno())[90m[39;49;00m
+            [94mif[39;49;00m options.overwrite:[90m[39;49;00m
+                os.replace(temporary, options.output)[90m[39;49;00m
+            [94melse[39;49;00m:[90m[39;49;00m
+                [90m# Atomic create-if-absent; do not clobber a concurrent writer.[39;49;00m[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    os.link(temporary, options.output)[90m[39;49;00m
+                [94mexcept[39;49;00m [96mFileExistsError[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+                    [94mraise[39;49;00m PluginFailureError([33mf[39;49;00m[33m"[39;49;00m[33mOutput exists: [39;49;00m[33m{[39;49;00moptions.output[33m}[39;49;00m[33m"[39;49;00m) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mexc[39;49;00m[90m[39;49;00m
+        [94mexcept[39;49;00m (PluginFailureError, PluginExecutionError):[90m[39;49;00m
+            [94mraise[39;49;00m[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+>           [94mraise[39;49;00m PluginExecutionError([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mCannot generate WebGL viewer at [39;49;00m[33m{[39;49;00moptions.output[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mexc[39;49;00m[90m[39;49;00m
+[1m[31mE           transpiler_mate.api.plugin.PluginExecutionError: Cannot generate WebGL viewer at /tmp/pytest-of-stripodi/pytest-79/test_atomic_output_and_overwri0/sub/view.html[0m
+
+[1m[31msrc/cwl2webgl/plugin.py[0m:109: PluginExecutionError
+[31m[1m___________________________ test_io_error_has_cause ____________________________[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-stripodi/pytest-79/test_io_error_has_cause0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_io_error_has_cause[39;49;00m(tmp_path):[90m[39;49;00m
+        parent = tmp_path / [33m"[39;49;00m[33mfile[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        parent.write_text([33m"[39;49;00m[33mnot a directory[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mwith[39;49;00m pytest.raises(PluginExecutionError) [94mas[39;49;00m caught:[90m[39;49;00m
+            cwl2webgl.execute([90m[39;49;00m
+                context(loaded()), CWL2WebGLOptions(output=parent / [33m"[39;49;00m[33mview.html[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            )[90m[39;49;00m
+>       [94massert[39;49;00m [96misinstance[39;49;00m(caught.value.__cause__, [96mOSError[39;49;00m)[90m[39;49;00m
+[1m[31mE       assert False[0m
+[1m[31mE        +  where False = isinstance(AttributeError("'SoftwareApplication' object has no attribute 'name'"), OSError)[0m
+[1m[31mE        +    where AttributeError("'SoftwareApplication' object has no attribute 'name'") = PluginExecutionError('Cannot generate WebGL viewer at /tmp/pytest-of-stripodi/pytest-79/test_io_error_has_cause0/file/view.html').__cause__[0m
+[1m[31mE        +      where PluginExecutionError('Cannot generate WebGL viewer at /tmp/pytest-of-stripodi/pytest-79/test_io_error_has_cause0/file/view.html') = <ExceptionInfo PluginExecutionError('Cannot generate WebGL viewer at /tmp/pytest-of-stripodi/pytest-79/test_io_error_has_cause0/file/view.html') tblen=2>.value[0m
+
+[1m[31mtests/test_plugin.py[0m:296: AssertionError
+[31m[1m_______________________ test_atomic_failure_cleans_temp ________________________[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-stripodi/pytest-79/test_atomic_failure_cleans_tem0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x704847313a30>
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_atomic_failure_cleans_temp[39;49;00m(tmp_path, monkeypatch):[90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfail[39;49;00m(*args):[90m[39;49;00m
+            [94mraise[39;49;00m [96mOSError[39;49;00m([33m"[39;49;00m[33mdisk failure[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mimport[39;49;00m[90m [39;49;00m[04m[96mimportlib[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+>       module = importlib.import_module([33m"[39;49;00m[33mcwl_webgl.plugin[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+
+[1m[31mtests/test_plugin.py[0m:305: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/lib/python3.10/importlib/__init__.py[0m:126: in import_module
+    [0m[94mreturn[39;49;00m _bootstrap._gcd_import(name[level:], package, level)[90m[39;49;00m
+[1m[31m<frozen importlib._bootstrap>[0m:1050: in _gcd_import
+    [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+[1m[31m<frozen importlib._bootstrap>[0m:1027: in _find_and_load
+    [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+[1m[31m<frozen importlib._bootstrap>[0m:992: in _find_and_load_unlocked
+    [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+[1m[31m<frozen importlib._bootstrap>[0m:241: in _call_with_frames_removed
+    [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+[1m[31m<frozen importlib._bootstrap>[0m:1050: in _gcd_import
+    [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+[1m[31m<frozen importlib._bootstrap>[0m:1027: in _find_and_load
+    [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'cwl_webgl', import_ = <function _gcd_import at 0x70484a363400>
+
+>   [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
+[1m[31mE   ModuleNotFoundError: No module named 'cwl_webgl'[0m
+
+[1m[31m<frozen importlib._bootstrap>[0m:1004: ModuleNotFoundError
+[36m[1m=========================== short test summary info ============================[0m
+[31mFAILED[0m tests/test_pattern12.py::[1mtest_pattern12_structure_and_named_schemas[0m - schema_salad.exceptions.ValidationException: [Errno 2] No such file or dire...
+[31mFAILED[0m tests/test_plugin.py::[1mtest_registration_and_options[0m - AssertionError: assert 'cwl2webgl' == 'cwl-webgl'
+[31mFAILED[0m tests/test_plugin.py::[1mtest_html_safety_and_unicode[0m - NameError: name 'render' is not defined
+[31mFAILED[0m tests/test_plugin.py::[1mtest_atomic_output_and_overwrite[0m - transpiler_mate.api.plugin.PluginExecutionError: Cannot generate WebGL view...
+[31mFAILED[0m tests/test_plugin.py::[1mtest_io_error_has_cause[0m - assert False
+[31mFAILED[0m tests/test_plugin.py::[1mtest_atomic_failure_cleans_temp[0m - ModuleNotFoundError: No module named 'cwl_webgl'
+[31m=================== [31m[1m6 failed[0m, [32m15 passed[0m, [33m2 skipped[0m[31m in 0.31s[0m[31m ====================[0m
+
