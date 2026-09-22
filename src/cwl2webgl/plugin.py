@@ -23,6 +23,7 @@ from importlib.resources import files
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from loguru import logger
 from pydantic import BaseModel, ConfigDict, Field
 from transpiler_mate.api import (
     PluginExecutionError,
@@ -78,11 +79,16 @@ def render(context: TranspilerContext, options: CWL2WebGLOptions) -> str:
 def cwl2webgl(context: TranspilerContext, options: CWL2WebGLOptions) -> None:
     temporary: Path | None = None
     try:
+        logger.info(f"Generating WebGL viewer at {options.output}")
         if options.output.exists() and not options.overwrite:
             raise PluginFailureError(
                 f"Output exists: {options.output}; set overwrite=true to replace it"
             )
+        logger.debug(
+            f"Rendering workflows with process selection {context.process_id!r}"
+        )
         content = render(context, options)
+        logger.debug(f"Creating output directory {options.output.parent}")
         options.output.parent.mkdir(parents=True, exist_ok=True)
         with tempfile.NamedTemporaryFile(
             mode="w",
@@ -92,23 +98,29 @@ def cwl2webgl(context: TranspilerContext, options: CWL2WebGLOptions) -> None:
             delete=False,
         ) as stream:
             temporary = Path(stream.name)
+            logger.debug(f"Writing HTML to temporary file {temporary}")
             stream.write(content)
             stream.flush()
             os.fsync(stream.fileno())
         if options.overwrite:
-            temporary.replace(options.output)
+            logger.debug(f"Publishing HTML to {options.output.absolute()} with overwrite enabled")
+            temporary.replace(options.output.absolute())
         else:
             # Atomic create-if-absent; do not clobber a concurrent writer.
             try:
+                logger.debug(f"Publishing HTML to {options.output.absolute()} without overwriting")
                 os.link(temporary, options.output)
             except FileExistsError as exc:
-                raise PluginFailureError(f"Output exists: {options.output}") from exc
-    except (PluginFailureError, PluginExecutionError):
+                raise PluginFailureError(f"Output exists: {options.output.absolute()}") from exc
+    except (PluginFailureError, PluginExecutionError) as exc:
+        logger.error(f"Cannot generate WebGL viewer at {options.output.absolute()}: {exc}")
         raise
     except Exception as exc:
+        logger.error(f"Cannot generate WebGL viewer at {options.output.absolute()}: {exc}")
         raise PluginExecutionError(
-            f"Cannot generate WebGL viewer at {options.output}"
+            f"Cannot generate WebGL viewer at {options.output.absolute()}"
         ) from exc
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
+    logger.success(f"WebGL viewer serialized to {options.output.absolute()}")
