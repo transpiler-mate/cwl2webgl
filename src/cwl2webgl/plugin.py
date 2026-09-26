@@ -1,4 +1,4 @@
-# Copyright 2026 Transpiler-Mate
+# Copyright 2026 Terradue
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,9 +43,7 @@ class CWL2WebGLOptions(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     output: Path = Field(default=Path("workflow.html"), description="Output HTML file")
-    overwrite: bool = Field(
-        default=False, description="Replace an existing output file"
-    )
+    overwrite: bool = Field(default=False, description="Replace an existing output file")
 
 
 def render(context: TranspilerContext, options: CWL2WebGLOptions) -> str:
@@ -61,12 +59,8 @@ def render(context: TranspilerContext, options: CWL2WebGLOptions) -> str:
     assets = files("cwl2webgl").joinpath("assets")
     template = assets.joinpath("viewer.html").read_text(encoding="utf-8")
     return (
-        template.replace(
-            "/*__STYLE__*/", assets.joinpath("viewer.css").read_text(encoding="utf-8")
-        )
-        .replace(
-            "/*__SCRIPT__*/", assets.joinpath("viewer.js").read_text(encoding="utf-8")
-        )
+        template.replace("/*__STYLE__*/", assets.joinpath("viewer.css").read_text(encoding="utf-8"))
+        .replace("/*__SCRIPT__*/", assets.joinpath("viewer.js").read_text(encoding="utf-8"))
         .replace("__PAYLOAD__", encoded)
     )
 
@@ -84,9 +78,7 @@ def cwl2webgl(context: TranspilerContext, options: CWL2WebGLOptions) -> None:
             raise PluginFailureError(
                 f"Output exists: {options.output}; set overwrite=true to replace it"
             )
-        logger.debug(
-            f"Rendering workflows with process selection {context.process_id!r}"
-        )
+        logger.debug(f"Rendering workflows with process selection {context.process_id!r}")
         content = render(context, options)
         logger.debug(f"Creating output directory {options.output.parent}")
         options.output.parent.mkdir(parents=True, exist_ok=True)

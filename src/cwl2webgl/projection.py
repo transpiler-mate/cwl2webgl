@@ -9,7 +9,7 @@ import json
 from typing import Any
 from urllib.parse import urldefrag, urljoin
 
-from cwl_utils.parser import Workflow
+from cwl_utils.parser import Process, Workflow, WorkflowStep
 from transpiler_mate.api import (
     PluginExecutionError,
     PluginFailureError,
@@ -85,7 +85,7 @@ BINDING_FIELDS = (
 )
 
 
-def find_process(context: TranspilerContext, reference: str) -> Any | None:
+def find_process(context: TranspilerContext, reference: str) -> Process | None:
     """Match exact IDs, or document-scoped fragment aliases. Never match basenames."""
     base, fragment = urldefrag(reference)
     source_base = urldefrag(str(context.source))[0]
@@ -105,15 +105,21 @@ def find_process(context: TranspilerContext, reference: str) -> Any | None:
 class Projection:
     """Per-invocation traversal state, containing references to the existing DOM."""
 
-    def __init__(self, context: TranspilerContext):
+    def __init__(self, context: TranspilerContext) -> None:
         self.context = context
         self.views: dict[str, dict[str, Any]] = {}
         self.resolved: dict[str, TranspilerContext] = {}
         self.active: set[str] = set()
 
     def run(
-        self, step: Any, context: TranspilerContext
-    ) -> tuple[Any, TranspilerContext]:
+        self, step: WorkflowStep, context: TranspilerContext
+    ) -> tuple[Process, TranspilerContext]:
+        """Resolve a step process and its owning context.
+
+        Raises:
+            PluginExecutionError: If the external resolver fails.
+            PluginFailureError: If the reference is ambiguous or unresolved.
+        """
         if not isinstance(step.run, str):
             return step.run, context
         process = find_process(context, step.run)
@@ -132,18 +138,21 @@ class Projection:
                     f"Cannot resolve run {step.run!r} for {step.id}"
                 ) from exc
         other = self.resolved[location]
+        return self._resolved_process(other, location), other
+
+    def _resolved_process(self, other: TranspilerContext, location: str) -> Process:
+        """Select the referenced process from a resolved document."""
         process = find_process(other, location)
         if process is None and other.process_id:
             process = find_process(other, other.process_id)
         if process is None and not urldefrag(location)[1] and len(other.document) == 1:
             process = next(iter(other.processes))
         if process is None:
-            raise PluginFailureError(
-                f"Resolved source does not identify run {location!r}"
-            )
-        return process, other
+            raise PluginFailureError(f"Resolved source does not identify run {location!r}")
+        return process
 
-    def view(self, workflow: Any, context: TranspilerContext) -> str:
+    def view(self, workflow: Workflow, context: TranspilerContext) -> str:
+        """Build a workflow view, rejecting recursive workflow references."""
         key = str(context.source) + "|" + workflow.id
         if key in self.active:
             raise PluginFailureError(f"Recursive workflow reference: {workflow.id}")
@@ -156,9 +165,7 @@ class Projection:
         self.views[key] = {
             "id": workflow.id,
             "label": workflow.label or short(workflow.id),
-            "details": details(
-                workflow, ("id", "label", "doc", "requirements", "hints")
-            ),
+            "details": details(workflow, ("id", "label", "doc", "requirements", "hints")),
             "nodes": nodes,
             "edges": edges,
         }
@@ -171,11 +178,10 @@ class Projection:
         context: TranspilerContext,
         sources: dict[str, tuple[str, str]],
     ) -> list[dict[str, Any]]:
+        """Build presentation nodes and register their source ports in place."""
         nodes: list[dict[str, Any]] = []
 
-        def node(
-            identifier: str, kind: str, obj: Any, info: dict[str, Any]
-        ) -> dict[str, Any]:
+        def node(identifier: str, kind: str, obj: Any, info: dict[str, Any]) -> dict[str, Any]:
             result = {
                 "id": node_id("step" if kind == "workflow" else kind, identifier),
                 "cwlId": identifier,
@@ -219,64 +225,79 @@ class Projection:
             )
             if isinstance(process, Workflow):
                 result["child"] = self.view(process, owner)
-            for output in step.out:
-                identifier = output if isinstance(output, str) else output.id
-                # cwl-loader's normalized DOM has out=["result"], source="step/result".
-                if "/" not in identifier and "#" not in identifier:
-                    identifier = step.id + "/" + identifier
-                if identifier in sources:
-                    raise PluginFailureError(f"Duplicate source port: {identifier}")
-                sources[identifier] = (node_id("step", step.id), identifier)
+            self._register_outputs(step, sources)
         for port in workflow.outputs:
             node(
                 port.id,
                 "output",
                 port,
-                details(port, PORT_FIELDS + ("outputSource", "linkMerge", "pickValue")),
+                details(port, (*PORT_FIELDS, "outputSource", "linkMerge", "pickValue")),
             )
 
         return nodes
 
-    def _edges(
-        self, workflow: Any, sources: dict[str, tuple[str, str]]
-    ) -> list[dict[str, Any]]:
-        edges: list[dict[str, Any]] = []
+    @staticmethod
+    def _register_outputs(step: WorkflowStep, sources: dict[str, tuple[str, str]]) -> None:
+        """Register step outputs, rejecting duplicate source ports."""
+        for output in step.out:
+            identifier = output if isinstance(output, str) else output.id
+            # cwl-loader's normalized DOM has out=["result"], source="step/result".
+            if "/" not in identifier and "#" not in identifier:
+                identifier = step.id + "/" + identifier
+            if identifier in sources:
+                raise PluginFailureError(f"Duplicate source port: {identifier}")
+            sources[identifier] = (node_id("step", step.id), identifier)
 
-        def connect(
-            reference: str, target: str, port: str, binding: dict[str, Any]
-        ) -> None:
-            if reference not in sources:
-                raise PluginFailureError(
-                    f"Unknown source {reference!r} in workflow {workflow.id}"
-                )
-            source, source_port = sources[reference]
-            edges.append(
-                {
-                    "source": source,
-                    "target": target,
-                    "sourcePort": source_port,
-                    "targetPort": port,
-                    "binding": binding,
-                }
-            )
+    @staticmethod
+    def _edge(
+        reference: str,
+        target: str,
+        port: str,
+        binding: dict[str, Any],
+        sources: dict[str, tuple[str, str]],
+        workflow_id: str,
+    ) -> dict[str, Any]:
+        """Create an edge after checking that its source exists."""
+        if reference not in sources:
+            raise PluginFailureError(f"Unknown source {reference!r} in workflow {workflow_id}")
+        source, source_port = sources[reference]
+        return {
+            "source": source,
+            "target": target,
+            "sourcePort": source_port,
+            "targetPort": port,
+            "binding": binding,
+        }
+
+    def _edges(self, workflow: Any, sources: dict[str, tuple[str, str]]) -> list[dict[str, Any]]:
+        """Connect workflow ports to their validated source nodes."""
+        edges: list[dict[str, Any]] = []
 
         for step in workflow.steps:
             for port in step.in_:
-                for reference in many(port.source):
-                    connect(
+                edges.extend(
+                    self._edge(
                         reference,
                         node_id("step", step.id),
                         port.id,
                         details(port, BINDING_FIELDS),
+                        sources,
+                        workflow.id,
                     )
+                    for reference in many(port.source)
+                )
         for port in workflow.outputs:
-            for reference in many(port.outputSource):
-                connect(
+            edges.extend(
+                self._edge(
                     reference,
                     node_id("output", port.id),
                     port.id,
                     details(port, ("linkMerge", "pickValue")),
+                    sources,
+                    workflow.id,
                 )
+                for reference in many(port.outputSource)
+            )
         return edges
 
     def build(self, workflow_id: str | None = None) -> dict[str, Any]:
@@ -286,21 +307,15 @@ class Projection:
             if selected is None:
                 # Convenient short selection is allowed only when unique, never for run resolution.
                 matches = [
-                    p
-                    for p in self.context.processes
-                    if short(p.id) == requested.lstrip("#")
+                    p for p in self.context.processes if short(p.id) == requested.lstrip("#")
                 ]
                 selected = matches[0] if len(matches) == 1 else None
             if selected is None or not isinstance(selected, Workflow):
-                raise PluginFailureError(
-                    f"Select an existing Workflow ID; got {requested!r}"
-                )
+                raise PluginFailureError(f"Select an existing Workflow ID; got {requested!r}")
             workflows = [selected]
         else:
             workflows = [
-                process
-                for process in self.context.processes
-                if isinstance(process, Workflow)
+                process for process in self.context.processes if isinstance(process, Workflow)
             ]
         if not workflows:
             raise PluginFailureError("The source contains no Workflow processes")

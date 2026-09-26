@@ -1,5 +1,5 @@
 <!--
-Copyright 2026 Transpiler-Mate
+Copyright 2026 Terradue
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,6 +15,11 @@ limitations under the License.
 -->
 
 # CWL to WebGL
+
+[![PyPI - Version](https://img.shields.io/pypi/v/cwl2webgl.svg)](https://pypi.org/project/cwl2webgl)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cwl2webgl.svg)](https://pypi.org/project/cwl2webgl)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/transpiler-mate/cwl2webgl/package.yaml?branch=develop&event=push&label=build&logo=githubactions)](https://github.com/transpiler-mate/cwl2webgl/actions/workflows/package.yaml?query=branch%3Adevelop)
+[![Code coverage](https://img.shields.io/codecov/c/github/transpiler-mate/cwl2webgl/develop?logo=codecov)](https://app.codecov.io/gh/transpiler-mate/cwl2webgl/tree/develop)
 
 `cwl2webgl` is a Transpiler-Mate plugin that turns a loaded CWL workflow into an
 interactive, offline HTML explorer. Browse workflow dependencies, open nested
@@ -127,4 +132,4 @@ local documentation build commands.
 
 ## License
 
-Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+[![Apache License, Version 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue)](https://www.apache.org/licenses/LICENSE-2.0)
