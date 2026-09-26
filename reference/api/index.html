@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Transpiler-Mate.github.io/cwl2webgl/reference/api/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>API - CWL to WebGL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "API";
+        var mkdocs_page_input_path = "reference/api.md";
+        var mkdocs_page_url = "/cwl2webgl/reference/api/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> CWL to WebGL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps/">First steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../how-to/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../how-to/install/">Install</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../how-to/use-cli/">Use the CLI</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">API</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#registration">Registration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#execute-from-a-host">Execute from a host</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#render-without-writing">Render without writing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#projection-internals">Projection internals</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-behavior">Error behavior</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#generated-api-documentation">Generated API documentation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cwl2webgl.plugin.CWL2WebGLOptions">CWL2WebGLOptions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cwl2webgl.plugin.render">render</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cwl2webgl.projection.Projection">Projection</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cwl2webgl.projection.Projection.run">run</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cwl2webgl.projection.Projection.view">view</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Explanation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/architecture/">Architecture</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">CWL to WebGL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Reference</li>
+      <li class="breadcrumb-item active">API</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Transpiler-Mate/cwl2webgl/edit/main/docs/reference/api.md">Edit on cwl2webgl</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <!--
+Copyright 2026 Terradue
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h1 id="plugin-and-api-reference">Plugin and API reference<a class="headerlink" href="#plugin-and-api-reference" title="Permanent link">&para;</a></h1>
+<h2 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">[project.entry-points.</span><span class="s2">"transpiler_mate.plugins"</span><span class="k">]</span>
+<span class="n">cwl2webgl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"cwl2webgl.plugin:cwl2webgl"</span>
+</code></pre></div>
+<p>The plugin is registered with <code>transpiler_mate.api.transpiler_plugin</code>. Import it
+and its options from <code>cwl2webgl.plugin</code>; the package root exports <code>__version__</code>.</p>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Python field</th>
+<th>CLI option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output</code></td>
+<td><code>--output</code></td>
+<td><code>pathlib.Path</code></td>
+<td><code>workflow.html</code></td>
+<td>Destination HTML file</td>
+</tr>
+<tr>
+<td><code>overwrite</code></td>
+<td><code>--overwrite</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Allow replacement of an existing destination</td>
+</tr>
+</tbody>
+</table>
+<p><code>CWL2WebGLOptions</code> rejects unknown fields. Workflow selection and the title are
+provided by <code>context.process_id</code> and <code>context.metadata.name</code>, respectively.</p>
+<h2 id="execute-from-a-host">Execute from a host<a class="headerlink" href="#execute-from-a-host" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transpiler_mate.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">TranspilerContext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cwl2webgl.plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">CWL2WebGLOptions</span><span class="p">,</span> <span class="n">cwl2webgl</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">export_workflow</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">cwl2webgl</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="n">context</span><span class="p">,</span>
+        <span class="n">CWL2WebGLOptions</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">"workflow.html"</span><span class="p">),</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>The host supplies these context fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>source</code></td>
+<td>Base location for relative references and view identity</td>
+</tr>
+<tr>
+<td><code>document</code> / <code>processes</code></td>
+<td>Already-loaded cwl-utils process objects</td>
+</tr>
+<tr>
+<td><code>process_id</code></td>
+<td>Optional selected workflow ID; otherwise include all workflows</td>
+</tr>
+<tr>
+<td><code>metadata.name</code></td>
+<td>Viewer heading and browser title</td>
+</tr>
+<tr>
+<td><code>resolver</code></td>
+<td>Resolves external process references into another context</td>
+</tr>
+</tbody>
+</table>
+<p>Execution returns <code>None</code> and writes the destination. The plugin reads the DOM
+without modifying it. CWL 1.0, 1.1, and 1.2 DOMs are covered by the tests.</p>
+<h2 id="render-without-writing">Render without writing<a class="headerlink" href="#render-without-writing" title="Permanent link">&para;</a></h2>
+<p><code>render(context, options)</code> returns the complete HTML as a string. It does not
+write files or apply overwrite checks. The <code>output</code> and <code>overwrite</code> options are
+used by plugin execution, not by rendering.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">cwl2webgl.plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">CWL2WebGLOptions</span><span class="p">,</span> <span class="n">render</span>
+
+<span class="c1"># context is supplied by the host.</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">CWL2WebGLOptions</span><span class="p">())</span>
+</code></pre></div>
+<h2 id="projection-internals">Projection internals<a class="headerlink" href="#projection-internals" title="Permanent link">&para;</a></h2>
+<p><code>Projection(context).build(workflow_id=None)</code> returns presentation data with
+<code>version</code>, <code>roots</code>, and <code>views</code>. A supplied workflow ID takes precedence over
+<code>context.process_id</code>. Exact IDs are preferred; unique short IDs are accepted for
+root selection. Process-reference resolution does not use basename matching.</p>
+<p>Views contain workflow details, nodes, and edges. Nodes retain <code>cwlId</code>, <code>kind</code>,
+<code>label</code>, and <code>details</code>; subworkflow nodes also reference a child view. Edges
+retain source and target node IDs, exact port IDs, and binding details. This is
+internal rendering data, not a separate CWL model or a stable interchange API.</p>
+<h2 id="error-behavior">Error behavior<a class="headerlink" href="#error-behavior" title="Permanent link">&para;</a></h2>
+<p><code>PluginFailureError</code> reports invalid selections, no workflows, ambiguous or
+recursive references, duplicate nodes or source ports, unknown connection
+sources, and protected output paths.</p>
+<p><code>PluginExecutionError</code> wraps resolver errors and unexpected generation or I/O
+errors. The original exception is retained as its cause. Existing output is
+only replaced after rendering and writing the temporary file succeed. Temporary
+files are cleaned up on completion or failure.</p>
+<h2 id="generated-api-documentation">Generated API documentation<a class="headerlink" href="#generated-api-documentation" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="cwl2webgl.plugin.CWL2WebGLOptions"></a>
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+
+        <p>Options accepted by the CWL to WebGL plugin.</p>
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>src/cwl2webgl/plugin.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CWL2WebGLOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Options accepted by the CWL to WebGL plugin."""</span>
+
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">extra</span><span class="o">=</span><span class="s2">"forbid"</span><span class="p">)</span>
+
+    <span class="n">output</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">"workflow.html"</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Output HTML file"</span><span class="p">)</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Replace an existing output file"</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<a id="cwl2webgl.plugin.render"></a>
+    <div class="doc doc-contents first">
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/cwl2webgl/plugin.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">CWL2WebGLOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">Projection</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
+    <span class="n">payload</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span>
+    <span class="c1"># JSON inside an HTML script element must not contain an HTML closing tag.</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">u003c"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">u003e"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&amp;"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">u0026"</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">assets</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="s2">"cwl2webgl"</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">"assets"</span><span class="p">)</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">"viewer.html"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/*__STYLE__*/"</span><span class="p">,</span> <span class="n">assets</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">"viewer.css"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/*__SCRIPT__*/"</span><span class="p">,</span> <span class="n">assets</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">"viewer.js"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"__PAYLOAD__"</span><span class="p">,</span> <span class="n">encoded</span><span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="cwl2webgl.projection.Projection"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Per-invocation traversal state, containing references to the existing DOM.</p>
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>src/cwl2webgl/projection.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Projection</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Per-invocation traversal state, containing references to the existing DOM."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TranspilerContext</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="n">WorkflowStep</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Process</span><span class="p">,</span> <span class="n">TranspilerContext</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Resolve a step process and its owning context.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            PluginExecutionError: If the external resolver fails.</span>
+<span class="sd">            PluginFailureError: If the reference is ambiguous or unresolved.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="n">context</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">process</span><span class="p">,</span> <span class="n">context</span>
+        <span class="c1"># cwl-utils normally supplies absolute URIs; normalized DOMs may retain fragments.</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">source</span><span class="p">),</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">process</span><span class="p">,</span> <span class="n">context</span>
+        <span class="k">if</span> <span class="n">location</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">[</span><span class="n">location</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PluginExecutionError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Cannot resolve run </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="si">!r}</span><span class="s2"> for </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">[</span><span class="n">location</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_process</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">location</span><span class="p">),</span> <span class="n">other</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_resolved_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Process</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Select the referenced process from a resolved document."""</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">process_id</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">urldefrag</span><span class="p">(</span><span class="n">location</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">document</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">processes</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Resolved source does not identify run </span><span class="si">{</span><span class="n">location</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">process</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow</span><span class="p">:</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build a workflow view, rejecting recursive workflow references."""</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">source</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"|"</span> <span class="o">+</span> <span class="n">workflow</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Recursive workflow reference: </span><span class="si">{</span><span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">sources</span><span class="p">)</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edges</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">sources</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">"label"</span><span class="p">:</span> <span class="n">workflow</span><span class="o">.</span><span class="n">label</span> <span class="ow">or</span> <span class="n">short</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+            <span class="s2">"details"</span><span class="p">:</span> <span class="n">details</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">,</span> <span class="s2">"doc"</span><span class="p">,</span> <span class="s2">"requirements"</span><span class="p">,</span> <span class="s2">"hints"</span><span class="p">)),</span>
+            <span class="s2">"nodes"</span><span class="p">:</span> <span class="n">nodes</span><span class="p">,</span>
+            <span class="s2">"edges"</span><span class="p">:</span> <span class="n">edges</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">key</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_nodes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">workflow</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">,</span>
+        <span class="n">sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Build presentation nodes and register their source ports in place."""</span>
+        <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">node</span><span class="p">(</span><span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">(</span><span class="s2">"step"</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"workflow"</span> <span class="k">else</span> <span class="n">kind</span><span class="p">,</span> <span class="n">identifier</span><span class="p">),</span>
+                <span class="s2">"cwlId"</span><span class="p">:</span> <span class="n">identifier</span><span class="p">,</span>
+                <span class="s2">"kind"</span><span class="p">:</span> <span class="n">kind</span><span class="p">,</span>
+                <span class="s2">"label"</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">short</span><span class="p">(</span><span class="n">identifier</span><span class="p">),</span>
+                <span class="s2">"details"</span><span class="p">:</span> <span class="n">info</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Duplicate node ID: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">workflow</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+            <span class="n">node</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">"input"</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">PORT_FIELDS</span><span class="p">))</span>
+            <span class="n">sources</span><span class="p">[</span><span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_id</span><span class="p">(</span><span class="s2">"input"</span><span class="p">,</span> <span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">workflow</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
+            <span class="n">process</span><span class="p">,</span> <span class="n">owner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">details</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">STEP_FIELDS</span><span class="p">)</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"run"</span><span class="p">]</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"bindings"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">BINDING_FIELDS</span><span class="p">)</span> <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">step</span><span class="o">.</span><span class="n">in_</span><span class="p">]</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">PORT_FIELDS</span><span class="p">)</span> <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">process</span><span class="o">.</span><span class="n">inputs</span><span class="p">]</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"outputs"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">PORT_FIELDS</span><span class="p">)</span> <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">process</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"process"</span><span class="p">]</span> <span class="o">=</span> <span class="n">details</span><span class="p">(</span>
+                <span class="n">process</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="s2">"class_"</span><span class="p">,</span>
+                    <span class="s2">"label"</span><span class="p">,</span>
+                    <span class="s2">"doc"</span><span class="p">,</span>
+                    <span class="s2">"requirements"</span><span class="p">,</span>
+                    <span class="s2">"hints"</span><span class="p">,</span>
+                    <span class="s2">"baseCommand"</span><span class="p">,</span>
+                    <span class="s2">"arguments"</span><span class="p">,</span>
+                    <span class="s2">"expression"</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">node</span><span class="p">(</span>
+                <span class="n">step</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s2">"workflow"</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"step"</span><span class="p">,</span>
+                <span class="n">step</span><span class="p">,</span>
+                <span class="n">info</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">"child"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_register_outputs</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">sources</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">workflow</span><span class="o">.</span><span class="n">outputs</span><span class="p">:</span>
+            <span class="n">node</span><span class="p">(</span>
+                <span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s2">"output"</span><span class="p">,</span>
+                <span class="n">port</span><span class="p">,</span>
+                <span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">PORT_FIELDS</span><span class="p">,</span> <span class="s2">"outputSource"</span><span class="p">,</span> <span class="s2">"linkMerge"</span><span class="p">,</span> <span class="s2">"pickValue"</span><span class="p">)),</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">nodes</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_register_outputs</span><span class="p">(</span><span class="n">step</span><span class="p">:</span> <span class="n">WorkflowStep</span><span class="p">,</span> <span class="n">sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Register step outputs, rejecting duplicate source ports."""</span>
+        <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">step</span><span class="o">.</span><span class="n">out</span><span class="p">:</span>
+            <span class="n">identifier</span> <span class="o">=</span> <span class="n">output</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">output</span><span class="o">.</span><span class="n">id</span>
+            <span class="c1"># cwl-loader's normalized DOM has out=["result"], source="step/result".</span>
+            <span class="k">if</span> <span class="s2">"/"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">identifier</span> <span class="ow">and</span> <span class="s2">"#"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">identifier</span><span class="p">:</span>
+                <span class="n">identifier</span> <span class="o">=</span> <span class="n">step</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">"/"</span> <span class="o">+</span> <span class="n">identifier</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Duplicate source port: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">sources</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_id</span><span class="p">(</span><span class="s2">"step"</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">identifier</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_edge</span><span class="p">(</span>
+        <span class="n">reference</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">port</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">binding</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+        <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Create an edge after checking that its source exists."""</span>
+        <span class="k">if</span> <span class="n">reference</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown source </span><span class="si">{</span><span class="n">reference</span><span class="si">!r}</span><span class="s2"> in workflow </span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">source_port</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="n">reference</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"source"</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span>
+            <span class="s2">"target"</span><span class="p">:</span> <span class="n">target</span><span class="p">,</span>
+            <span class="s2">"sourcePort"</span><span class="p">:</span> <span class="n">source_port</span><span class="p">,</span>
+            <span class="s2">"targetPort"</span><span class="p">:</span> <span class="n">port</span><span class="p">,</span>
+            <span class="s2">"binding"</span><span class="p">:</span> <span class="n">binding</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Connect workflow ports to their validated source nodes."""</span>
+        <span class="n">edges</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">workflow</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">step</span><span class="o">.</span><span class="n">in_</span><span class="p">:</span>
+                <span class="n">edges</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">(</span>
+                        <span class="n">reference</span><span class="p">,</span>
+                        <span class="n">node_id</span><span class="p">(</span><span class="s2">"step"</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                        <span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">BINDING_FIELDS</span><span class="p">),</span>
+                        <span class="n">sources</span><span class="p">,</span>
+                        <span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">many</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">workflow</span><span class="o">.</span><span class="n">outputs</span><span class="p">:</span>
+            <span class="n">edges</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_edge</span><span class="p">(</span>
+                    <span class="n">reference</span><span class="p">,</span>
+                    <span class="n">node_id</span><span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                    <span class="n">port</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="n">details</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="p">(</span><span class="s2">"linkMerge"</span><span class="p">,</span> <span class="s2">"pickValue"</span><span class="p">)),</span>
+                    <span class="n">sources</span><span class="p">,</span>
+                    <span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">many</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">outputSource</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">edges</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">requested</span> <span class="o">=</span> <span class="n">workflow_id</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">process_id</span>
+        <span class="k">if</span> <span class="n">requested</span><span class="p">:</span>
+            <span class="n">selected</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">requested</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">selected</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Convenient short selection is allowed only when unique, never for run resolution.</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">processes</span> <span class="k">if</span> <span class="n">short</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">==</span> <span class="n">requested</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"#"</span><span class="p">)</span>
+                <span class="p">]</span>
+                <span class="n">selected</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">selected</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Select an existing Workflow ID; got </span><span class="si">{</span><span class="n">requested</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">workflows</span> <span class="o">=</span> <span class="p">[</span><span class="n">selected</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">workflows</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">process</span> <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">processes</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">workflows</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="s2">"The source contains no Workflow processes"</span><span class="p">)</span>
+        <span class="n">roots</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="k">for</span> <span class="n">workflow</span> <span class="ow">in</span> <span class="n">workflows</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"roots"</span><span class="p">:</span> <span class="n">roots</span><span class="p">,</span> <span class="s2">"views"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="cwl2webgl.projection.Projection.run" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></code>
+
+<a href="#cwl2webgl.projection.Projection.run" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Resolve a step process and its owning context.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="transpiler_mate.api.PluginExecutionError">PluginExecutionError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the external resolver fails.</p>
+              </div>
+            </li>
+            <li>
+                  <code><span title="transpiler_mate.api.PluginFailureError">PluginFailureError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>If the reference is ambiguous or unresolved.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/cwl2webgl/projection.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="n">WorkflowStep</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Process</span><span class="p">,</span> <span class="n">TranspilerContext</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Resolve a step process and its owning context.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        PluginExecutionError: If the external resolver fails.</span>
+<span class="sd">        PluginFailureError: If the reference is ambiguous or unresolved.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="n">context</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">process</span><span class="p">,</span> <span class="n">context</span>
+    <span class="c1"># cwl-utils normally supplies absolute URIs; normalized DOMs may retain fragments.</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">source</span><span class="p">),</span> <span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">find_process</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">process</span><span class="p">,</span> <span class="n">context</span>
+    <span class="k">if</span> <span class="n">location</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">[</span><span class="n">location</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PluginExecutionError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Cannot resolve run </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">run</span><span class="si">!r}</span><span class="s2"> for </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+    <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolved</span><span class="p">[</span><span class="n">location</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_process</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">location</span><span class="p">),</span> <span class="n">other</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="cwl2webgl.projection.Projection.view" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">view</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></code>
+
+<a href="#cwl2webgl.projection.Projection.view" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Build a workflow view, rejecting recursive workflow references.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/cwl2webgl/projection.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workflow</span><span class="p">:</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">TranspilerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Build a workflow view, rejecting recursive workflow references."""</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">source</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"|"</span> <span class="o">+</span> <span class="n">workflow</span><span class="o">.</span><span class="n">id</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PluginFailureError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Recursive workflow reference: </span><span class="si">{</span><span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">key</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">sources</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edges</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">sources</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s2">"label"</span><span class="p">:</span> <span class="n">workflow</span><span class="o">.</span><span class="n">label</span> <span class="ow">or</span> <span class="n">short</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+        <span class="s2">"details"</span><span class="p">:</span> <span class="n">details</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">,</span> <span class="s2">"doc"</span><span class="p">,</span> <span class="s2">"requirements"</span><span class="p">,</span> <span class="s2">"hints"</span><span class="p">)),</span>
+        <span class="s2">"nodes"</span><span class="p">:</span> <span class="n">nodes</span><span class="p">,</span>
+        <span class="s2">"edges"</span><span class="p">:</span> <span class="n">edges</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">key</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../explanation/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Transpiler-Mate/cwl2webgl" class="fa fa-code-fork" style="color: #fcfcfc"> cwl2webgl</a>
+        </span>
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../explanation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

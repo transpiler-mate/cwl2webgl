@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Transpiler-Mate.github.io/cwl2webgl/how-to/use-cli/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Use the CLI - CWL to WebGL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Use the CLI";
+        var mkdocs_page_input_path = "how-to/use-cli.md";
+        var mkdocs_page_url = "/cwl2webgl/how-to/use-cli/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> CWL to WebGL
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps/">First steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../install/">Install</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Use the CLI</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#render-a-workflow">Render a workflow</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#choose-which-workflows-to-include">Choose which workflows to include</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#choose-the-output-and-replace-it">Choose the output and replace it</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#set-the-title">Set the title</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resolve-generation-failures">Resolve generation failures</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/api/">API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Explanation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/architecture/">Architecture</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">CWL to WebGL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">How-to guides</li>
+      <li class="breadcrumb-item active">Use the CLI</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Transpiler-Mate/cwl2webgl/edit/main/docs/how-to/use-cli.md">Edit on cwl2webgl</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <!--
+Copyright 2026 Terradue
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h1 id="generate-a-viewer-from-the-cli">Generate a viewer from the CLI<a class="headerlink" href="#generate-a-viewer-from-the-cli" title="Permanent link">&para;</a></h1>
+<p>Install the plugin and <code>transpiler-mate-runtime</code> in the same environment.
+The runtime owns source loading, process selection, and metadata validation.</p>
+<h2 id="render-a-workflow">Render a workflow<a class="headerlink" href="#render-a-workflow" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="go">transpiler-mate cwl2webgl 'docs/examples/hello.cwl#main' --output workflow.html</span>
+</code></pre></div>
+<p>Run this example from the repository root, or replace the source with your own
+CWL location. Quote a source containing a fragment to preserve it in your shell.
+Open the generated HTML directly in your browser.</p>
+<h2 id="choose-which-workflows-to-include">Choose which workflows to include<a class="headerlink" href="#choose-which-workflows-to-include" title="Permanent link">&para;</a></h2>
+<p>Append a workflow ID as a source fragment, such as <code>#main</code>, to select it.
+With no selected process ID, the plugin includes all Workflow processes in the
+loaded document in the dropdown. Referenced subworkflows are included as nested
+views. Selecting a tool instead of a workflow fails.</p>
+<div class="highlight"><pre><span></span><code><span class="go">transpiler-mate cwl2webgl docs/examples/hello.cwl --output workflows.html</span>
+</code></pre></div>
+<p>Workflow selection comes from the context prepared by the runtime. There is no
+<code>--workflow-id</code> plugin option.</p>
+<h2 id="choose-the-output-and-replace-it">Choose the output and replace it<a class="headerlink" href="#choose-the-output-and-replace-it" title="Permanent link">&para;</a></h2>
+<p>The default output is <code>workflow.html</code> in the current directory. Parent directories
+are created as needed. Replacement requires explicit permission:</p>
+<div class="highlight"><pre><span></span><code><span class="go">transpiler-mate cwl2webgl 'docs/examples/hello.cwl#main' --output build/viewer.html --overwrite</span>
+</code></pre></div>
+<p>The plugin writes a temporary file beside the destination and publishes it
+atomically. See <a href="../../reference/api/#error-behavior">error behavior</a> for failures.</p>
+<h2 id="set-the-title">Set the title<a class="headerlink" href="#set-the-title" title="Permanent link">&para;</a></h2>
+<p>Set the application name in the source metadata, as shown by <code>s:name</code> in the
+<a href="../../examples/hello.cwl">example</a>. The runtime turns that into
+<code>context.metadata.name</code>, which the viewer uses for its heading and browser title.
+There is no <code>--title</code> plugin option. Workflow and node labels remain separate.</p>
+<h2 id="resolve-generation-failures">Resolve generation failures<a class="headerlink" href="#resolve-generation-failures" title="Permanent link">&para;</a></h2>
+<ul>
+<li>If metadata validation fails, supply the document-level fields required by
+  the runtime. Use the complete example as a starting point.</li>
+<li>If the source has no workflows, use a Workflow document or select a workflow
+  from a packed document.</li>
+<li>If a referenced process cannot be loaded, check its URI and the host resolver's
+  access to it. Generation may need network access even though viewing is offline.</li>
+<li>If the output already exists, choose another path or pass <code>--overwrite</code>.</li>
+</ul>
+<p>Use <code>transpiler-mate cwl2webgl --help</code> to inspect options exposed by your installed
+runtime. The <a href="../../reference/api/">API reference</a> lists the plugin's own options.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../install/" class="btn btn-neutral float-left" title="Install"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../reference/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Transpiler-Mate/cwl2webgl" class="fa fa-code-fork" style="color: #fcfcfc"> cwl2webgl</a>
+        </span>
+    
+    
+      <span><a href="../install/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../reference/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
