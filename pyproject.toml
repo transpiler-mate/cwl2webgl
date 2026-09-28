@@ -127,7 +127,7 @@ exclude_lines = [
 [tool.hatch.envs.test]
 skip-install = false
 dependencies = [
-  "click>=8.4.2,<9",
+  "click>=8.5.0,<9",
   "pytest>=8.4,<10",
   "pytest-cov>=6.2,<8",
 ]
@@ -166,7 +166,7 @@ dependencies = [
   "types-jsonschema>=4.26.0.20260518",
   "ruff>=0.16.0",
   "bandit>=1.9.4",
-  "click>=8.4.2,<9",
+  "click>=8.5.0,<9",
   "pytest>=8.4,<10",
 ]
 
@@ -318,7 +318,7 @@ check = [
 # Preserve editable-install test extras and uv's local wheel resolution.
 [project.optional-dependencies]
 test = [
-  "click>=8.4.2,<9",
+  "click>=8.5.0,<9",
   "pytest>=8.4,<10",
   "pytest-cov>=6.2,<8"
 ]
